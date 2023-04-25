@@ -32,11 +32,8 @@ data_holder = DataHolder(table_data)
 def data_view():
     """ Returns the table. """
     df = pd.DataFrame(data_holder.get_data())
-    # Convert the dataframe to a dictionary of records
     new_data = df.to_dict('records')
-    # Convert the dictionary to a JSON string
     json_data = json.dumps(new_data)
-    # Create a Response object with the JSON data and appropriate content type header
     response = Response(json_data, mimetype='application/json')
     return response
 
@@ -50,7 +47,6 @@ def transform_view():
     if not column or not delimiter:
         return jsonify(data_holder.get_data())
 
-    # make a copy of the transformed data
     data_copy = [row.copy() for row in data_holder.transformed_data]
     df = pd.DataFrame(data_copy)
 
@@ -69,7 +65,6 @@ def transform_view():
     data_holder.set_data(df.to_dict('records'))
 
     json_data = json.dumps(data_holder.get_data())
-    # Create a Response object with the JSON data and appropriate content type header
     response = Response(json_data, mimetype='application/json')
     return response
 
@@ -79,11 +74,8 @@ def reset_view():
     """ Resets the table to original state."""
     data_holder.reset_data()
     df = pd.DataFrame(data_holder.get_data())
-    # Convert the dataframe to a dictionary of records
     new_data = df.to_dict('records')
-    # Convert the dictionary to a JSON string
     json_data = json.dumps(new_data)
-    # Create a Response object with the JSON data and appropriate content type header
     response = Response(json_data, mimetype='application/json')
     return response
 
